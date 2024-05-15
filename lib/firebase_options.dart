@@ -67,6 +67,8 @@ class DefaultFirebaseOptions {
     messagingSenderId: '139931262767',
     projectId: 'kerjolee-264f0',
     storageBucket: 'kerjolee-264f0.appspot.com',
+    androidClientId: '139931262767-qiuomul3dvhjupqbdjsg5q7g8r5qbfus.apps.googleusercontent.com',
+    iosClientId: '139931262767-j2gnajn9fqsi8sahm2nlgfp0en57tht1.apps.googleusercontent.com',
     iosBundleId: 'com.kerjolee.presence',
   );
 
@@ -76,6 +78,9 @@ class DefaultFirebaseOptions {
     messagingSenderId: '139931262767',
     projectId: 'kerjolee-264f0',
     storageBucket: 'kerjolee-264f0.appspot.com',
+    androidClientId: '139931262767-qiuomul3dvhjupqbdjsg5q7g8r5qbfus.apps.googleusercontent.com',
+    iosClientId: '139931262767-j2gnajn9fqsi8sahm2nlgfp0en57tht1.apps.googleusercontent.com',
     iosBundleId: 'com.kerjolee.presence',
   );
+
 }

@@ -12,7 +12,20 @@
           "package_name": "com.kerjolee.presence"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "139931262767-qiuomul3dvhjupqbdjsg5q7g8r5qbfus.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.kerjolee.presence",
+            "certificate_hash": "fa0f4d036b205a35aea58ddab599a33502af1d22"
+          }
+        },
+        {
+          "client_id": "139931262767-hb24f3jep0692iqk2a4hblg0de3217v3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyC_y7tGlQITnZjH2wjwToFqqzILcStl3Sc"
@@ -20,7 +33,19 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "139931262767-hb24f3jep0692iqk2a4hblg0de3217v3.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "139931262767-j2gnajn9fqsi8sahm2nlgfp0en57tht1.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.kerjolee.presence"
+              }
+            }
+          ]
         }
       }
     }
