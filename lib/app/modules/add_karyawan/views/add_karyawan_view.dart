@@ -23,6 +23,7 @@ class AddKaryawanView extends GetView<AddKaryawanController> {
         padding: EdgeInsets.all(20),
         children: [
           TextField(
+autocorrect: false,
             controller: controller.nameC,
             decoration: InputDecoration(
               labelText: 'Name',
@@ -37,6 +38,7 @@ class AddKaryawanView extends GetView<AddKaryawanController> {
           ),
           const SizedBox(height: 20),
           TextField(
+autocorrect: false,
             controller: controller.nikC,
             decoration: InputDecoration(
               labelText: 'NIK',
@@ -51,6 +53,7 @@ class AddKaryawanView extends GetView<AddKaryawanController> {
           ),
           const SizedBox(height: 20),
           TextField(
+autocorrect: false,
             controller: controller.emailC,
             decoration: InputDecoration(
               labelText: 'Email',
@@ -65,6 +68,7 @@ class AddKaryawanView extends GetView<AddKaryawanController> {
           ),
           const SizedBox(height: 20),
           TextField(
+autocorrect: false,
             controller: controller.passwordC,
             obscureText: true,
             decoration: InputDecoration(

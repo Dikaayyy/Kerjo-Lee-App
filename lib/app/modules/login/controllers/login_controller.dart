@@ -12,49 +12,64 @@ class LoginController extends GetxController {
   FirebaseAuth auth = FirebaseAuth.instance;
 
   void login() async {
-    if (emailC.text.isNotEmpty && passwordC.text.isNotEmpty) {
-      try {
-        UserCredential userCredential = await auth.signInWithEmailAndPassword(
-            email: emailC.text, password: passwordC.text);
+  if (emailC.text.isNotEmpty && passwordC.text.isNotEmpty) {
+    try {
+      UserCredential userCredential = await auth.signInWithEmailAndPassword(
+        email: emailC.text,
+        password: passwordC.text,
+      );
 
-        print(userCredential.user);
+      print(userCredential.user);
 
-        if (userCredential.user != null) {
-          if (userCredential.user!.emailVerified == true) {
-            Get.offAllNamed(
-              Routes.HOME,
-            );
+      if (userCredential.user != null) {
+        if (userCredential.user!.emailVerified ==true) {
+          if (passwordC.text =="password"){
+            Get.offAllNamed(Routes.NEW_PASSWORD);
           } else {
-            Get.defaultDialog(
-              title: 'Email not verified',
-              middleText: 'Please verify your email',
-              onConfirm: () async {
-                await userCredential.user!.sendEmailVerification();
-                Get.back();
-              },
-            );
-            try {
-              await userCredential.user!.sendEmailVerification();
-            } catch (e) {}
-          }
-        }
-      } on FirebaseAuthException catch (e) {
-        if (e.code == 'user-not-found') {
-          Get.snackbar(
-            'Error',
-            'No user found for that email.',
+            Get.offAllNamed(Routes.HOME);
+          } 
+        } else {
+        
+          Get.defaultDialog(
+            title: 'Email not verified',
+            middleText: 'Please verify your email',
+            actions: [
+              OutlinedButton(
+                onPressed: () => Get.back(),
+                child: Text("BATALKAN"),
+              ),
+              ElevatedButton(
+                onPressed: () async {
+                  try {
+                    await userCredential.user!.sendEmailVerification();
+                    Get.back();
+                    Get.snackbar("Success", "Verification email sent");
+                  } catch (e) {
+                    Get.snackbar("Error", "Cannot send verification email");
+                    print("Error sending verification email: $e");
+                  }
+                },
+                child: Text("KIRIM ULANG"),
+              ),
+            ],
           );
-        } else if (e.code == 'wrong-password') {
-          Get.snackbar(
-            'Error',
-            'Wrong password provided for that user.',
-          );
         }
-      } catch (e) {
-        Get.snackbar('Error', 'Cant login');
       }
-    } else {
-      Get.snackbar('Error', 'Please fill all fields');
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'user-not-found') {
+        Get.snackbar('Error', 'No user found for that email.');
+      } else if (e.code == 'wrong-password') {
+        Get.snackbar('Error', 'Wrong password provided for that user.');
+      } else {
+        Get.snackbar('Error', 'Authentication error: ${e.message}');
+        print("Authentication error: ${e.code}, ${e.message}");
+      }
+    } catch (e) {
+      Get.snackbar('Error', 'Cannot login');
+      print("General error during login: $e");
     }
+  } else {
+    Get.snackbar('Error', 'Please fill all fields');
   }
+}
 }
