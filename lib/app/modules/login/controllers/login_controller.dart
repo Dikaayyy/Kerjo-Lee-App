@@ -29,7 +29,6 @@ class LoginController extends GetxController {
             Get.offAllNamed(Routes.HOME);
           } 
         } else {
-        
           Get.defaultDialog(
             title: 'Email not verified',
             middleText: 'Please verify your email',

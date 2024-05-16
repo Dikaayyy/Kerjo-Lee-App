@@ -10,17 +10,28 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  // try {
-  //   await FirebaseAuth.instance.useAuthEmulator('localhost', 9099);
-  // } catch (e) {
-  //   // ignore: avoid_print
-  //   print(e);
-  // }
+  
   runApp(
-    GetMaterialApp(
-      title: "Application",
-      initialRoute: Routes.LOGIN,
-      getPages: AppPages.routes,
+    StreamBuilder<User?> (
+      stream : FirebaseAuth.instance.authStateChanges(),
+      builder: (context, Snapshot){
+        if (Snapshot.connectionState == ConnectionState.waiting){
+          return MaterialApp(
+            home:Scaffold(
+              body:Center(
+                child: CircularProgressIndicator(),
+              ),
+            ),
+          );
+        }
+        print (Snapshot.data);
+        return GetMaterialApp(
+          title: "Application",
+          initialRoute: Snapshot.data != null ? Routes.HOME : Routes.LOGIN,
+          getPages: AppPages.routes,
+        );
+      }
     ),
   );
 }
+
