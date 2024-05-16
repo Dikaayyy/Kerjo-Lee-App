@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
-
 import 'package:get/get.dart';
-
 import '../controllers/login_controller.dart';
 
 class LoginView extends GetView<LoginController> {
   const LoginView({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -23,7 +22,7 @@ class LoginView extends GetView<LoginController> {
         padding: EdgeInsets.all(20),
         children: [
           TextField(
-          autocorrect: false,
+            autocorrect: false,
             controller: controller.emailC,
             decoration: InputDecoration(
               labelText: 'Email',
@@ -38,7 +37,7 @@ class LoginView extends GetView<LoginController> {
           ),
           const SizedBox(height: 20),
           TextField(
-          autocorrect: false,
+            autocorrect: false,
             obscureText: true,
             controller: controller.passwordC,
             decoration: InputDecoration(
@@ -53,23 +52,27 @@ class LoginView extends GetView<LoginController> {
             ),
           ),
           const SizedBox(height: 20),
-          ElevatedButton(
-            onPressed: () {
-              controller.login();
+          Obx (
+            ()=>ElevatedButton(
+            onPressed: () async {
+              if (controller.isLoading.isFalse) {
+                await controller.login();
+              }
             },
-            child: const Text(
-              'Login',
-              style: TextStyle(
+            child : Text(
+              controller.isLoading.isFalse ? 'Login' : 'LOADING . .',
+              style: const TextStyle(
                 color: Colors.white,
               ),
             ),
             style: ElevatedButton.styleFrom(
               backgroundColor: Colors.blue,
+              ),
             ),
           ),
           TextButton(
             onPressed: () {},
-            child: Text(
+            child: const Text(
               'Forgot Password?',
               style: TextStyle(
                 color: Colors.blue,

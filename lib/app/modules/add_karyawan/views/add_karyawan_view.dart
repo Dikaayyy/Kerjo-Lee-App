@@ -23,7 +23,7 @@ class AddKaryawanView extends GetView<AddKaryawanController> {
         padding: EdgeInsets.all(20),
         children: [
           TextField(
-autocorrect: false,
+          autocorrect: false,
             controller: controller.nameC,
             decoration: InputDecoration(
               labelText: 'Name',
@@ -38,7 +38,7 @@ autocorrect: false,
           ),
           const SizedBox(height: 20),
           TextField(
-autocorrect: false,
+          autocorrect: false,
             controller: controller.nikC,
             decoration: InputDecoration(
               labelText: 'NIK',
@@ -53,7 +53,7 @@ autocorrect: false,
           ),
           const SizedBox(height: 20),
           TextField(
-autocorrect: false,
+          autocorrect: false,
             controller: controller.emailC,
             decoration: InputDecoration(
               labelText: 'Email',
@@ -68,7 +68,7 @@ autocorrect: false,
           ),
           const SizedBox(height: 20),
           TextField(
-autocorrect: false,
+          autocorrect: false,
             controller: controller.passwordC,
             obscureText: true,
             decoration: InputDecoration(
@@ -84,13 +84,16 @@ autocorrect: false,
           ),
           const SizedBox(height: 30),
           ElevatedButton(
-            onPressed: () {
-              controller.addKaryawan();
+            onPressed:()async{
+              if(controller.isLoading.isFalse){
+                await controller.addKaryawan();
+              }
             },
-            child: const Text(
-              'ADD KARYAWAN',
-              style: TextStyle(
+            child: Obx(() => Text(
+              controller.isLoading.isFalse ? 'Login' : 'LOADING . .',
+              style: const TextStyle(
                 color: Colors.white,
+                )
               ),
             ),
             style: ElevatedButton.styleFrom(
