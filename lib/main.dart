@@ -10,28 +10,27 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  
+
+  // test error
   runApp(
-    StreamBuilder<User?> (
-      stream : FirebaseAuth.instance.authStateChanges(),
-      builder: (context, Snapshot){
-        if (Snapshot.connectionState == ConnectionState.waiting){
-          return MaterialApp(
-            home:Scaffold(
-              body:Center(
-                child: CircularProgressIndicator(),
+    StreamBuilder<User?>(
+        stream: FirebaseAuth.instance.authStateChanges(),
+        builder: (context, Snapshot) {
+          if (Snapshot.connectionState == ConnectionState.waiting) {
+            return MaterialApp(
+              home: Scaffold(
+                body: Center(
+                  child: CircularProgressIndicator(),
+                ),
               ),
-            ),
+            );
+          }
+          print(Snapshot.data);
+          return GetMaterialApp(
+            title: "Application",
+            initialRoute: Snapshot.data != null ? Routes.HOME : Routes.LOGIN,
+            getPages: AppPages.routes,
           );
-        }
-        print (Snapshot.data);
-        return GetMaterialApp(
-          title: "Application",
-          initialRoute: Snapshot.data != null ? Routes.HOME : Routes.LOGIN,
-          getPages: AppPages.routes,
-        );
-      }
-    ),
+        }),
   );
 }
-
