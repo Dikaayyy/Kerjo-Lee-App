@@ -7,12 +7,12 @@ class HomeController extends GetxController {
   //TODO: Implement HomeController
   RxBool isLoading = false.obs;
 
-  FirebaseAuth auth  = FirebaseAuth.instance;
+  FirebaseAuth auth = FirebaseAuth.instance;
   FirebaseFirestore firestore = FirebaseFirestore.instance;
 
   Stream<DocumentSnapshot<Map<String, dynamic>>> streamRole() async* {
-    String uid =auth.currentUser!.uid;
+    String uid = auth.currentUser!.uid;
 
-  yield* firestore.collection("karyawan").doc(uid).snapshots();
+    yield* firestore.collection("karyawan").doc(uid).snapshots();
   }
 }

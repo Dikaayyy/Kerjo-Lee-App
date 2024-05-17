@@ -19,14 +19,16 @@ class AddKaryawanController extends GetxController {
   FirebaseAuth auth = FirebaseAuth.instance;
   FirebaseFirestore firestore = FirebaseFirestore.instance;
 
-  Future<void> prossesAddKaryawan() async{
-    if (passwordC.text.isNotEmpty){
+  Future<void> prossesAddKaryawan() async {
+    if (passwordC.text.isNotEmpty) {
       isLoadingAddKaryawan.value = true;
       try {
         String emailVerified = auth.currentUser!.email!;
-        UserCredential userCredentialAdmin = await auth.signInWithEmailAndPassword(
-          email: emailC.text, 
-          password: passwordC.text,);
+        UserCredential userCredentialAdmin =
+            await auth.signInWithEmailAndPassword(
+          email: emailC.text,
+          password: passwordC.text,
+        );
 
         UserCredential KaryawanCredential =
             await auth.createUserWithEmailAndPassword(
@@ -49,18 +51,18 @@ class AddKaryawanController extends GetxController {
 
           await auth.signOut();
 
-          UserCredential userCredentialAdmin = await auth.signInWithEmailAndPassword(
-            email: emailVerified, 
+          UserCredential userCredentialAdmin =
+              await auth.signInWithEmailAndPassword(
+            email: emailVerified,
             password: passwordC.text,
-            );
+          );
 
           Get.back();
           Get.back();
           Get.snackbar("Succes", "Berhasil Menambahkan Karyawan");
         }
-          isLoadingAddKaryawan.value = false;
-          //await auth.signInWithEmailAndPassword(email: email, password: password);
-
+        isLoadingAddKaryawan.value = false;
+        //await auth.signInWithEmailAndPassword(email: email, password: password);
       } on FirebaseAuthException catch (e) {
         isLoadingAddKaryawan.value = false;
         if (e.code == 'weak-password') {
@@ -68,7 +70,7 @@ class AddKaryawanController extends GetxController {
               'Error', 'The password provided is too weak. Please try again.');
         } else if (e.code == 'email-already-in-use') {
           Get.snackbar('Error', 'The account already exists for that email.');
-        } else if (e.code == "wrong-password"){
+        } else if (e.code == "wrong-password") {
           Get.snackbar('Error', 'Can not Login, Wrong Password');
         } else {
           Get.snackbar('Error', '${e.code}');
@@ -77,53 +79,57 @@ class AddKaryawanController extends GetxController {
         isLoadingAddKaryawan.value = false;
         Get.snackbar('PERINGATAN', 'Password Salah');
       }
-     } else{
-        Get.snackbar("PERINGATAN", "Password Wajib Diisi");
-      }
+    } else {
+      Get.snackbar("PERINGATAN", "Password Wajib Diisi");
+    }
   }
-  Future <void> addKaryawan() async {
+
+  Future<void> addKaryawan() async {
     if (nameC.text.isNotEmpty &&
         nikC.text.isNotEmpty &&
         emailC.text.isNotEmpty &&
         passwordC.text.isNotEmpty) {
-          isLoading.value = true;
-          Get.defaultDialog(
-            title: "Verfikasi Admin",
-            content: Column(
-              children: [
-                Text("Masukkan Password Anda untuk Verifikasi Admin"),
-                SizedBox(height: 15),
-                TextField(
-                  controller: passwordC,
-                  autocorrect: false,
-                  obscureText: true,
-                  decoration: InputDecoration(
-                    labelText: "Password",
-                    border: OutlineInputBorder(),
-                  ),
-                ),
-              ],
+      isLoading.value = true;
+      Get.defaultDialog(
+        title: "Verfikasi Admin",
+        content: Column(
+          children: [
+            Text("Masukkan Password Anda untuk Verifikasi Admin"),
+            SizedBox(height: 15),
+            TextField(
+              controller: passwordC,
+              autocorrect: false,
+              obscureText: true,
+              decoration: InputDecoration(
+                labelText: "Password",
+                border: OutlineInputBorder(),
+              ),
             ),
-            actions: [
-              OutlinedButton(
-                onPressed: () {
-                  isLoading.value = false;
-                  Get.back();
-                },
-                child: Text("BATALKAN"),
-                ),
-                Obx(
-                  ()=> ElevatedButton (onPressed: () async {
-                    if(isLoadingAddKaryawan.isFalse){
-                      await prossesAddKaryawan();
-                    }
-                    isLoading.value = false;
-                    }, 
-                  child: Text(isLoadingAddKaryawan.isFalse ? "TAMBAHKAN KARYAWAN" : "LOADING . ."),
-                ),
-               ),
-            ],
-          );
+          ],
+        ),
+        actions: [
+          OutlinedButton(
+            onPressed: () {
+              isLoading.value = false;
+              Get.back();
+            },
+            child: Text("BATALKAN"),
+          ),
+          Obx(
+            () => ElevatedButton(
+              onPressed: () async {
+                if (isLoadingAddKaryawan.isFalse) {
+                  await prossesAddKaryawan();
+                }
+                isLoading.value = false;
+              },
+              child: Text(isLoadingAddKaryawan.isFalse
+                  ? "TAMBAHKAN KARYAWAN"
+                  : "LOADING . ."),
+            ),
+          ),
+        ],
+      );
     } else {
       Get.snackbar('Error', 'Please fill all fields');
     }
