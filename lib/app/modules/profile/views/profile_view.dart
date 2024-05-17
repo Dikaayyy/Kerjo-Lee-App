@@ -9,6 +9,7 @@ import '../controllers/profile_controller.dart';
 
 class ProfileView extends GetView<ProfileController> {
   const ProfileView({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -29,6 +30,16 @@ class ProfileView extends GetView<ProfileController> {
         builder: (context, snap) {
           if (snap.connectionState == ConnectionState.waiting) {
             return Center(child: CircularProgressIndicator());
+          }
+          if (snap.hasError) {
+            return Center(
+              child: Text('Tidak dapat memuat data user.'),
+            );
+          }
+          if (!snap.hasData || !snap.data!.exists) {
+            return Center(
+              child: Text('Tidak ada data user yang ditemukan.'),
+            );
           }
           Map<String, dynamic> user = snap.data!.data()!;
 

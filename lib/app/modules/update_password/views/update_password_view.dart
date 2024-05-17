@@ -13,11 +13,49 @@ class UpdatePasswordView extends GetView<UpdatePasswordController> {
         title: const Text('UpdatePasswordView'),
         centerTitle: true,
       ),
-      body: const Center(
-        child: Text(
-          'UpdatePasswordView is working',
-          style: TextStyle(fontSize: 20),
-        ),
+      body :ListView(
+        padding: EdgeInsets.all(20),
+        children: [
+          TextField(
+            controller: controller.currC,
+            autocorrect: false,
+            obscureText: true,
+            decoration: InputDecoration(
+              labelText: 'Password Saat ini',
+              border: OutlineInputBorder(),
+            ),
+          ),
+          SizedBox(height: 15),
+          TextField(
+            controller: controller.newC,
+            autocorrect: false,
+            obscureText: true,
+            decoration: InputDecoration(
+              labelText: 'Password Baru',
+              border: OutlineInputBorder(),
+            ),
+          ),
+          SizedBox(height: 15),
+          TextField(
+            controller: controller.ConfirmC,
+            autocorrect: false,
+            obscureText: true,
+            decoration: InputDecoration(
+              labelText: 'Konfirmasi Password Baru',
+              border: OutlineInputBorder(),
+            ),
+          ),
+          SizedBox(height: 15),
+          Obx(
+            () => ElevatedButton(onPressed: (){
+              if (controller.isLoading.isFalse){
+                controller.updatePassword();
+              }
+            },
+            child: Text ((controller.isLoading.isFalse) ? "GANTI PASSWORD" : "LOADING . ."),
+            ),
+          ),
+        ],
       ),
     );
   }
