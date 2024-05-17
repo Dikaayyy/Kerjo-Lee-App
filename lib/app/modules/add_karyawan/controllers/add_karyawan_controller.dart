@@ -41,6 +41,7 @@ class AddKaryawanController extends GetxController {
             "email": emailC.text,
             "password": passwordC.text,
             "uid": uid,
+            "role": "karyawan",
             "createdAt": DateTime.now().toIso8601String(),
           });
 
