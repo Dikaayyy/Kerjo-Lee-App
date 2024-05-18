@@ -10,10 +10,18 @@ class UpdatePasswordView extends GetView<UpdatePasswordController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('UpdatePasswordView'),
+        title: const Text(
+          'UPDATE PASSWORD',
+          style: TextStyle(
+            fontSize: 20,
+            fontWeight: FontWeight.bold,
+            color: Colors.white,
+          ),
+        ),
+        backgroundColor: Colors.blue,
         centerTitle: true,
       ),
-      body :ListView(
+      body: ListView(
         padding: EdgeInsets.all(20),
         children: [
           TextField(
@@ -21,7 +29,7 @@ class UpdatePasswordView extends GetView<UpdatePasswordController> {
             autocorrect: false,
             obscureText: true,
             decoration: InputDecoration(
-              labelText: 'Password Saat ini',
+              labelText: 'Current Password',
               border: OutlineInputBorder(),
             ),
           ),
@@ -31,28 +39,47 @@ class UpdatePasswordView extends GetView<UpdatePasswordController> {
             autocorrect: false,
             obscureText: true,
             decoration: InputDecoration(
-              labelText: 'Password Baru',
+              labelText: 'New Password',
               border: OutlineInputBorder(),
             ),
           ),
           SizedBox(height: 15),
           TextField(
-            controller: controller.ConfirmC,
+            controller: controller.confirmC,
             autocorrect: false,
             obscureText: true,
             decoration: InputDecoration(
-              labelText: 'Konfirmasi Password Baru',
+              labelText: 'Confirm New Password',
               border: OutlineInputBorder(),
             ),
           ),
           SizedBox(height: 15),
           Obx(
-            () => ElevatedButton(onPressed: (){
-              if (controller.isLoading.isFalse){
-                controller.updatePassword();
-              }
-            },
-            child: Text ((controller.isLoading.isFalse) ? "GANTI PASSWORD" : "LOADING . ."),
+            () => ElevatedButton(
+              onPressed: () {
+                if (controller.isLoading.isFalse) {
+                  controller.updatePassword();
+                }
+              },
+              child: Text(
+                (controller.isLoading.isFalse)
+                    ? "Change Password"
+                    : "LOADING . .",
+                style: TextStyle(fontSize: 15, color: Colors.white),
+              ),
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.blue,
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 30,
+                  vertical: 18,
+                ),
+                textStyle: const TextStyle(
+                  fontSize: 15,
+                ),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(15),
+                ),
+              ),
             ),
           ),
         ],
