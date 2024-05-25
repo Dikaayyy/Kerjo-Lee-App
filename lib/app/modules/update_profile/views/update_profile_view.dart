@@ -50,56 +50,52 @@ class UpdateProfileView extends GetView<UpdateProfileController> {
             ),
           ),
           const SizedBox(height: 10),
-          Row (
+          Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              GetBuilder<UpdateProfileController>
-              (builder: (c) {
-                if (c.image != null){
-                  return ClipOval(
-                  child:Container(
-                    height: 120,
-                    width: 120,
-                    child: Image.file(
-                      File(c.image!.path),
-                      fit: BoxFit.cover, 
-                      ),
-                    ),
-                  );
-                  } else {
-                    if(user["profile"]!=null){
-                      return Column (
-                        children: [
-                        ClipOval(
-                          child:Container(
-                          height: 120,
-                          width: 120,
-                          child: Image.network(
-                          user["profile"],
+              GetBuilder<UpdateProfileController>(
+                builder: (c) {
+                  if (c.image != null) {
+                    return ClipOval(
+                      child: Container(
+                        height: 120,
+                        width: 120,
+                        child: Image.file(
+                          File(c.image!.path),
                           fit: BoxFit.cover,
-                          ), 
                         ),
                       ),
-                      TextButton(
-                onPressed: (){
-                  controller.deleteProfile(user ["uid"]);
-                }, 
-                  child: Text ("Delete")
-              ),
-                    ]
                     );
+                  } else {
+                    if (user["profile"] != null) {
+                      return Column(children: [
+                        ClipOval(
+                          child: Container(
+                            height: 120,
+                            width: 120,
+                            child: Image.network(
+                              user["profile"],
+                              fit: BoxFit.cover,
+                            ),
+                          ),
+                        ),
+                        TextButton(
+                            onPressed: () {
+                              controller.deleteProfile(user["uid"]);
+                            },
+                            child: Text("Delete")),
+                      ]);
                     } else {
-                      return Text ("Tidak ada gambar dipilih");
+                      return Text("Tidak ada gambar dipilih");
                     }
                   }
                 },
               ),
               TextButton(
-                onPressed: (){
-                  controller.pickImage();
-                }, 
-                  child: Text ("Pilih")
-              ),
+                  onPressed: () {
+                    controller.pickImage();
+                  },
+                  child: Text("Pilih")),
             ],
           ),
           const SizedBox(height: 30),

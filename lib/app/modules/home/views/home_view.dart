@@ -1,19 +1,19 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:convex_bottom_bar/convex_bottom_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:presence/app/routes/app_pages.dart';
 import '../controllers/home_controller.dart';
+import '../../../controllers/page_index_controller.dart';
 
 //
 class HomeView extends GetView<HomeController> {
-  const HomeView({Key? key}) : super(key: key);
+  final pageC = Get.find<PageIndexController>();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('HomeView'),
+        title: const Text('HOME'),
         titleTextStyle: const TextStyle(
           fontSize: 20,
           fontWeight: FontWeight.bold,
@@ -28,32 +28,6 @@ class HomeView extends GetView<HomeController> {
               foregroundColor: MaterialStateProperty.all(Colors.white),
             ),
           ),
-          // StreamBuilder<DocumentSnapshot<Map<String, dynamic>>>(
-          //   stream: controller.streamRole(),
-          //   builder: (context, snap) {
-          //     if (snap.connectionState == ConnectionState.waiting) {
-          //       return SizedBox(); // Mengembalikan widget kosong saat menunggu data
-          //     }
-
-          //     if (snap.hasData && snap.data!.data() != null) {
-          //       String role = snap.data!.data()!["role"];
-          //       if (role == "admin") {
-          //         return IconButton(
-          //           onPressed: () => Get.toNamed(Routes.ADD_KARYAWAN),
-          //           icon: const Icon(Icons.admin_panel_settings),
-          //           style: ButtonStyle(
-          //             foregroundColor: MaterialStateProperty.all(Colors.white),
-          //           ),
-          //         );
-          //       } else {
-          //         return SizedBox(); // Mengembalikan widget kosong untuk non-admin
-          //       }
-          //     }
-
-          //     // Mengembalikan widget kosong jika tidak ada data
-          //     return SizedBox();
-          //   },
-          // ),
         ],
         centerTitle: true,
       ),
@@ -63,21 +37,15 @@ class HomeView extends GetView<HomeController> {
           style: TextStyle(fontSize: 20),
         ),
       ),
-      // floatingActionButton: Obx(
-      //   () => FloatingActionButton(
-      //     onPressed: () async {
-      //       if (controller.isLoading.isFalse) {
-      //         controller.isLoading.value = true;
-      //         await FirebaseAuth.instance.signOut();
-      //         controller.isLoading.value = false;
-      //         Get.offAllNamed(Routes.LOGIN);
-      //       }
-      //     },
-      //     child: controller.isLoading.isFalse
-      //         ? Icon(Icons.logout)
-      //         : CircularProgressIndicator(),
-      //   ),
-      // ),
+      bottomNavigationBar: ConvexAppBar(
+        items: [
+          TabItem(icon: Icons.home, title: 'Home'),
+          TabItem(icon: Icons.add, title: 'Add'),
+          TabItem(icon: Icons.person, title: 'Profile'),
+        ],
+        initialActiveIndex: pageC.pageIndex.value,
+        onTap: (int i) => pageC.changePage(i),
+      ),
     );
   }
 }
