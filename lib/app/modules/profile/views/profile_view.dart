@@ -42,6 +42,7 @@ class ProfileView extends GetView<ProfileController> {
             );
           }
           Map<String, dynamic> user = snap.data!.data()!;
+          String defaultimage = "https://ui-avatars.com/api/?name=${user['name']}";
 
           return ListView(
             padding: EdgeInsets.all(20),
@@ -54,7 +55,11 @@ class ProfileView extends GetView<ProfileController> {
                       width: 100,
                       height: 100,
                       child: Image.network(
-                        "https://ui-avatars.com/api/?name=${user['name']}",
+                        user ["profile"] != null 
+                        ? user ["profile"] != ""
+                          ? user ["profile"] 
+                          : defaultimage
+                            : defaultimage,
                         fit: BoxFit.fill,
                       ),
                     ),

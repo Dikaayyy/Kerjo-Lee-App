@@ -1,11 +1,12 @@
+import 'dart:async';
+import 'dart:io';
 import 'package:flutter/material.dart';
-
 import 'package:get/get.dart';
-
 import '../controllers/update_profile_controller.dart';
 
 class UpdateProfileView extends GetView<UpdateProfileController> {
   final Map<String, dynamic> user = Get.arguments;
+
   @override
   Widget build(BuildContext context) {
     controller.nameC.text = user["name"] ?? '';
@@ -42,6 +43,66 @@ class UpdateProfileView extends GetView<UpdateProfileController> {
             ),
           ),
           const SizedBox(height: 20),
+          Text(
+            "Foto Profil",
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          const SizedBox(height: 10),
+          Row (
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              GetBuilder<UpdateProfileController>
+              (builder: (c) {
+                if (c.image != null){
+                  return ClipOval(
+                  child:Container(
+                    height: 120,
+                    width: 120,
+                    child: Image.file(
+                      File(c.image!.path),
+                      fit: BoxFit.cover, 
+                      ),
+                    ),
+                  );
+                  } else {
+                    if(user["profile"]!=null){
+                      return Column (
+                        children: [
+                        ClipOval(
+                          child:Container(
+                          height: 120,
+                          width: 120,
+                          child: Image.network(
+                          user["profile"],
+                          fit: BoxFit.cover,
+                          ), 
+                        ),
+                      ),
+                      TextButton(
+                onPressed: (){
+                  controller.deleteProfile(user ["uid"]);
+                }, 
+                  child: Text ("Delete")
+              ),
+                    ]
+                    );
+                    } else {
+                      return Text ("Tidak ada gambar dipilih");
+                    }
+                  }
+                },
+              ),
+              TextButton(
+                onPressed: (){
+                  controller.pickImage();
+                }, 
+                  child: Text ("Pilih")
+              ),
+            ],
+          ),
+          const SizedBox(height: 30),
           TextField(
             readOnly: true,
             autocorrect: false,
@@ -81,12 +142,11 @@ class UpdateProfileView extends GetView<UpdateProfileController> {
             },
             child: Obx(
               () => Text(
-                  controller.isLoading.isFalse
-                      ? 'Update Profile'
-                      : 'LOADING . .',
-                  style: const TextStyle(
-                    color: Colors.white,
-                  )),
+                controller.isLoading.isFalse ? 'Update Profile' : 'LOADING . .',
+                style: const TextStyle(
+                  color: Colors.white,
+                ),
+              ),
             ),
             style: ElevatedButton.styleFrom(
               backgroundColor: Colors.blue,
