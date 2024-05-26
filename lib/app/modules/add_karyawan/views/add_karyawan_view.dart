@@ -36,6 +36,20 @@ class AddKaryawanView extends GetView<AddKaryawanController> {
               ),
             ),
           ),
+           TextField(
+          autocorrect: false,
+            controller: controller.jobC,
+            decoration: InputDecoration(
+              labelText: 'Job',
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(10),
+              ),
+              contentPadding: const EdgeInsets.symmetric(
+                horizontal: 10,
+                vertical: 5,
+              ),
+            ),
+          ),
           const SizedBox(height: 20),
           TextField(
           autocorrect: false,
