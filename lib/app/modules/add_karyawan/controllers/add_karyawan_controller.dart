@@ -40,6 +40,7 @@ class AddKaryawanController extends GetxController {
             "name": nameC.text,
             "nik": nikC.text,
             "email": emailC.text,
+            "job": jobC.text,
             "password": passwordC.text,
             "uid": uid,
             "createdAt": DateTime.now().toIso8601String(),
@@ -85,6 +86,7 @@ class AddKaryawanController extends GetxController {
     if (nameC.text.isNotEmpty &&
         nikC.text.isNotEmpty &&
         emailC.text.isNotEmpty &&
+        jobC.text.isNotEmpty &&
         passwordC.text.isNotEmpty) {
           isLoading.value = true;
           Get.defaultDialog(
