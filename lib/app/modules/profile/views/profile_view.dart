@@ -120,7 +120,7 @@ class ProfileView extends GetView<ProfileController> {
       bottomNavigationBar: ConvexAppBar(
         items: [
           TabItem(icon: Icons.home, title: 'Home'),
-          TabItem(icon: Icons.add, title: 'Add'),
+          TabItem(icon: Icons.fingerprint, title: 'Add'),
           TabItem(icon: Icons.person, title: 'Profile'),
         ],
         initialActiveIndex: pageC.pageIndex.value,
