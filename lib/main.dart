@@ -21,6 +21,7 @@ void main() async {
         builder: (context, Snapshot) {
           if (Snapshot.connectionState == ConnectionState.waiting) {
             return MaterialApp(
+              debugShowCheckedModeBanner: false,
               home: Scaffold(
                 body: Center(
                   child: CircularProgressIndicator(),

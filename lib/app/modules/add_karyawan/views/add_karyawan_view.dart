@@ -23,7 +23,7 @@ class AddKaryawanView extends GetView<AddKaryawanController> {
         padding: EdgeInsets.all(20),
         children: [
           TextField(
-          autocorrect: false,
+            autocorrect: false,
             controller: controller.nameC,
             decoration: InputDecoration(
               labelText: 'Name',
@@ -36,8 +36,9 @@ class AddKaryawanView extends GetView<AddKaryawanController> {
               ),
             ),
           ),
-           TextField(
-          autocorrect: false,
+          const SizedBox(height: 20),
+          TextField(
+            autocorrect: false,
             controller: controller.jobC,
             decoration: InputDecoration(
               labelText: 'Job',
@@ -52,7 +53,7 @@ class AddKaryawanView extends GetView<AddKaryawanController> {
           ),
           const SizedBox(height: 20),
           TextField(
-          autocorrect: false,
+            autocorrect: false,
             controller: controller.nikC,
             decoration: InputDecoration(
               labelText: 'NIK',
@@ -67,7 +68,7 @@ class AddKaryawanView extends GetView<AddKaryawanController> {
           ),
           const SizedBox(height: 20),
           TextField(
-          autocorrect: false,
+            autocorrect: false,
             controller: controller.emailC,
             decoration: InputDecoration(
               labelText: 'Email',
@@ -82,7 +83,7 @@ class AddKaryawanView extends GetView<AddKaryawanController> {
           ),
           const SizedBox(height: 20),
           TextField(
-          autocorrect: false,
+            autocorrect: false,
             controller: controller.passwordC,
             obscureText: true,
             decoration: InputDecoration(
@@ -98,17 +99,16 @@ class AddKaryawanView extends GetView<AddKaryawanController> {
           ),
           const SizedBox(height: 30),
           ElevatedButton(
-            onPressed:()async{
-              if(controller.isLoading.isFalse){
+            onPressed: () async {
+              if (controller.isLoading.isFalse) {
                 await controller.addKaryawan();
               }
             },
-            child: Obx(() => Text(
-              controller.isLoading.isFalse ? 'Login' : 'LOADING . .',
-              style: const TextStyle(
-                color: Colors.white,
-                )
-              ),
+            child: Obx(
+              () => Text(controller.isLoading.isFalse ? 'Login' : 'LOADING . .',
+                  style: const TextStyle(
+                    color: Colors.white,
+                  )),
             ),
             style: ElevatedButton.styleFrom(
               backgroundColor: Colors.blue,

@@ -30,7 +30,13 @@ class UpdatePasswordView extends GetView<UpdatePasswordController> {
             obscureText: true,
             decoration: InputDecoration(
               labelText: 'Current Password',
-              border: OutlineInputBorder(),
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(10),
+              ),
+              contentPadding: const EdgeInsets.symmetric(
+                horizontal: 10,
+                vertical: 5,
+              ),
             ),
           ),
           SizedBox(height: 15),
@@ -40,7 +46,13 @@ class UpdatePasswordView extends GetView<UpdatePasswordController> {
             obscureText: true,
             decoration: InputDecoration(
               labelText: 'New Password',
-              border: OutlineInputBorder(),
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(10),
+              ),
+              contentPadding: const EdgeInsets.symmetric(
+                horizontal: 10,
+                vertical: 5,
+              ),
             ),
           ),
           SizedBox(height: 15),
@@ -50,7 +62,13 @@ class UpdatePasswordView extends GetView<UpdatePasswordController> {
             obscureText: true,
             decoration: InputDecoration(
               labelText: 'Confirm New Password',
-              border: OutlineInputBorder(),
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(10),
+              ),
+              contentPadding: const EdgeInsets.symmetric(
+                horizontal: 10,
+                vertical: 5,
+              ),
             ),
           ),
           SizedBox(height: 15),

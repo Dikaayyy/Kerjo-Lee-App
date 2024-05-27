@@ -217,15 +217,15 @@ class HomeView extends GetView<HomeController> {
           color: Colors.white,
         ),
         backgroundColor: Colors.blue,
-        actions: [
-          IconButton(
-            onPressed: () => Get.toNamed(Routes.PROFILE),
-            icon: const Icon(Icons.person),
-            style: ButtonStyle(
-              foregroundColor: MaterialStateProperty.all(Colors.white),
-            ),
-          ),
-        ],
+        // actions: [
+        //   IconButton(
+        //     onPressed: () => Get.toNamed(Routes.PROFILE),
+        //     icon: const Icon(Icons.person),
+        //     style: ButtonStyle(
+        //       foregroundColor: MaterialStateProperty.all(Colors.white),
+        //     ),
+        //   ),
+        // ],
         centerTitle: true,
       ),
       body: StreamBuilder<DocumentSnapshot<Map<String, dynamic>>>(
