@@ -9,77 +9,170 @@ class LoginView extends GetView<LoginController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text(
-          'LOGIN',
-          style: TextStyle(
-            color: Colors.white,
+      body: SingleChildScrollView(
+        // Tambahkan SingleChildScrollView di sini
+        child: Container(
+          padding: const EdgeInsets.symmetric(vertical: 30),
+          width: double.infinity,
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              begin: Alignment.topCenter,
+              colors: [
+                Colors.blue.shade900,
+                Colors.blue.shade800,
+                const Color.fromRGBO(66, 165, 245, 1),
+                Colors.white,
+              ],
+            ),
+          ),
+          child: Column(
+            children: <Widget>[
+              SizedBox(height: 80),
+              Padding(
+                padding: const EdgeInsets.all(20),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: <Widget>[
+                    Text(
+                      'Login',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 40,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    SizedBox(height: 10),
+                    Text(
+                      'Welcome back',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 18,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              Container(
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(60),
+                    topRight: Radius.circular(60),
+                  ),
+                ),
+                child: Padding(
+                  padding: EdgeInsets.all(20),
+                  child: Column(
+                    children: <Widget>[
+                      SizedBox(height: 60),
+                      Container(
+                        padding: EdgeInsets.all(20),
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(10),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Color.fromRGBO(66, 145, 245, 1),
+                              blurRadius: 20,
+                              offset: Offset(0, 10),
+                            ),
+                          ],
+                        ),
+                        child: Column(
+                          children: <Widget>[
+                            Container(
+                              decoration: BoxDecoration(
+                                border: Border(
+                                  bottom: BorderSide(
+                                    color: Colors.grey.shade200,
+                                  ),
+                                ),
+                              ),
+                              child: TextField(
+                                autocorrect: false,
+                                controller: controller.emailC,
+                                decoration: InputDecoration(
+                                  labelText: 'Email',
+                                  border: InputBorder.none,
+                                  contentPadding: EdgeInsets.symmetric(
+                                    horizontal: 10,
+                                    vertical: 5,
+                                  ),
+                                ),
+                              ),
+                            ),
+                            Container(
+                              decoration: BoxDecoration(
+                                border: Border(
+                                  bottom: BorderSide(
+                                    color: Colors.grey.shade200,
+                                  ),
+                                ),
+                              ),
+                              child: TextField(
+                                autocorrect: false,
+                                obscureText: true,
+                                controller: controller.passwordC,
+                                decoration: InputDecoration(
+                                  labelText: 'Password',
+                                  border: InputBorder.none,
+                                  contentPadding: EdgeInsets.symmetric(
+                                    horizontal: 10,
+                                    vertical: 5,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      SizedBox(height: 40),
+                      Obx(
+                        () => ElevatedButton(
+                          onPressed: () async {
+                            if (controller.isLoading.isFalse) {
+                              await controller.login();
+                            }
+                          },
+                          child: Text(
+                            controller.isLoading.isFalse
+                                ? 'Login'
+                                : 'Loading . .',
+                            style: TextStyle(
+                              color: Colors.white,
+                            ),
+                          ),
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.blue,
+                            minimumSize: Size(
+                                double.infinity, 35), // Ukuran minimum tombol
+                            padding: EdgeInsets.symmetric(
+                                vertical: 15), // Padding tombol
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(50),
+                            ),
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                          height:
+                              20), // Beri sedikit jarak antara tombol dan text
+                      TextButton(
+                        onPressed: () => Get.toNamed(Routes.FORGOT_PASSWORD),
+                        child: Text(
+                          'Forgot Password?',
+                          style: TextStyle(
+                            color: Colors.blue,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ],
           ),
         ),
-        backgroundColor: Colors.blue,
-        centerTitle: true,
-      ),
-      body: ListView(
-        padding: EdgeInsets.all(20),
-        children: [
-          TextField(
-            autocorrect: false,
-            controller: controller.emailC,
-            decoration: InputDecoration(
-              labelText: 'Email',
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(10),
-              ),
-              contentPadding: const EdgeInsets.symmetric(
-                horizontal: 10,
-                vertical: 5,
-              ),
-            ),
-          ),
-          const SizedBox(height: 20),
-          TextField(
-            autocorrect: false,
-            obscureText: true,
-            controller: controller.passwordC,
-            decoration: InputDecoration(
-              labelText: 'Password',
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(10),
-              ),
-              contentPadding: const EdgeInsets.symmetric(
-                horizontal: 10,
-                vertical: 5,
-              ),
-            ),
-          ),
-          const SizedBox(height: 20),
-          Obx (
-            ()=>ElevatedButton(
-            onPressed: () async {
-              if (controller.isLoading.isFalse) {
-                await controller.login();
-              }
-            },
-            child : Text(
-              controller.isLoading.isFalse ? 'Login' : 'LOADING . .',
-              style: const TextStyle(
-                color: Colors.white,
-              ),
-            ),
-            style: ElevatedButton.styleFrom(
-              backgroundColor: Colors.blue,
-              ),
-            ),
-          ),
-          TextButton(
-            onPressed: () => Get.toNamed(Routes.FORGOT_PASSWORD),
-            child: const Text('Forgot Password?',
-              style: TextStyle(
-                color: Colors.blue,
-              ),
-            ),
-          ),
-        ],
       ),
     );
   }
