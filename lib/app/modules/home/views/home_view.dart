@@ -78,7 +78,12 @@ class HomeView extends GetView<HomeController> {
                           SizedBox(
                             height: 5,
                           ),
-                          Text(user["position"] != null ? "${user['position']}" : "Alamat Tidak Tersedia"),
+                          Container(
+                            width: 200,
+                            child: Text(user["address"] != null
+                                ? "${user['address']}"
+                                : "Address not eligible"),
+                          ),
                         ],
                       ),
                     ],
