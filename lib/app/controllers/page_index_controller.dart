@@ -29,7 +29,9 @@ class PageIndexController extends GetxController {
 
             await updatePosition(position, address);
 
-            await presensi(position, address);
+            double distance = Geolocator.distanceBetween(-7.0525858, 110.3979612, position.latitude, position.longitude );
+
+            await presensi(position, address, distance);
 
             Get.snackbar("Success", "You presence");
           } else {
@@ -48,7 +50,7 @@ class PageIndexController extends GetxController {
     }
   }
 
-  Future<void> presensi(Position position, String address) async {
+  Future<void> presensi(Position position, String address, double distance) async {
     String uid = auth.currentUser!.uid;
     CollectionReference<Map<String, dynamic>> colPresnce =
         await firestore.collection("karyawan").doc(uid).collection("Presence");
@@ -57,6 +59,12 @@ class PageIndexController extends GetxController {
 
     DateTime now = DateTime.now();
     String todayDocID = DateFormat.yMd().format(now).replaceAll("/", "-");
+
+    String status = "Outside The Area";
+
+    if(distance <= 100){
+      status = "In The Area";
+    }
     if (snapPresence.docs.length == 0) {
       await colPresnce.doc(todayDocID).set({
         "date": now.toIso8601String(),
@@ -65,31 +73,44 @@ class PageIndexController extends GetxController {
           "lat": position.latitude,
           "long": position.longitude,
           "address": address,
-          "status": "In the Area",
+          "status": status,
+          "distance": distance,
         }
       });
     } else {
-      Map<String, dynamic> dataPresence = snapPresence.docs.first.data();
-      DateTime datePresence = DateTime.parse(dataPresence["date"]);
-      if (DateFormat.yMd().format(now) ==
-          DateFormat.yMd().format(datePresence)) {
-        if (dataPresence["keluar"] == null) {
-          await colPresnce.doc(todayDocID).update({
-            "keluar": {
-              "date": now.toIso8601String(),
-              "lat": position.latitude,
-              "long": position.longitude,
-              "address": address,
-              "status": "In the Area",
-            }
-          });
+      DocumentSnapshot<Map<String, dynamic>> todayDoc = await colPresnce.doc(todayDocID).get();
+      if (todayDoc.exists == true){
+        Map<String, dynamic>? dataPresenceToday = todayDoc.data();
+        if(dataPresenceToday?["Keluar"] != null){
+          Get.snackbar("Peringatan", "Kamu Sudah Absen masuk dan keluar");
         } else {
-          Get.snackbar("Error", "You presence in 5 minutes");
+          // absen keluar
+          await colPresnce.doc(todayDocID).update({
+          "Keluar": {
+          "date": now.toIso8601String(),
+          "lat": position.latitude,
+          "long": position.longitude,
+          "address": address,
+          "status": status,
+          "distance": distance,
+            },
+          });
         }
       } else {
-        Get.snackbar("Error", "You presence in 5 minutes");
+        await colPresnce.doc(todayDocID).set({
+        "date": now.toIso8601String(),
+        "masuk": {
+          "date": now.toIso8601String(),
+          "lat": position.latitude,
+          "long": position.longitude,
+          "address": address,
+          "status": status,
+          "distance": distance,
+         },
+        });
       }
     }
+  }
     Future<void> updatePosition(Position position, String address) async {
       String uid = auth.currentUser!.uid;
       try {
@@ -160,4 +181,3 @@ class PageIndexController extends GetxController {
   determinePosition() {}
 
   updatePosition(Position position, String address) {}
-}

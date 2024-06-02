@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:convex_bottom_bar/convex_bottom_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:presence/app/routes/app_pages.dart';
@@ -177,63 +178,84 @@ class HomeView extends GetView<HomeController> {
                     ],
                   ),
                   SizedBox(height: 10),
-                  ListView.builder(
-                    shrinkWrap: true,
-                    physics: NeverScrollableScrollPhysics(),
-                    itemCount: 5,
-                    itemBuilder: (context, index) {
-                      return Padding(
-                        padding: const EdgeInsets.only(bottom: 20),
-                        child: Material(
-                          color: Colors.grey[200],
-                          borderRadius: BorderRadius.circular(20),
-                          child: InkWell(
-                            onTap: () {
-                              Get.toNamed("/detail-presensi");
-                            },
-                            borderRadius: BorderRadius.circular(20),
-                            child: Container(
-                              padding: EdgeInsets.all(20),
-                              decoration: BoxDecoration(
+                  StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
+                    stream: controller.streamLastPresence(),
+                    builder: (context, snapPresence) {
+                      if ( snapPresence.connectionState == ConnectionState.waiting ){
+                        return Center(
+                          child: CircularProgressIndicator(),
+                        );
+                      }
+                      print (snapPresence.data);
+                      if (snapPresence.data?.docs.length == 0 || snapPresence.data == null ){
+                        return SizedBox(
+                          height: 250,
+                          child: Center(
+                          child: Text ("Anda Belum Pernah Absen"),
+                          ),
+                        );
+                      }
+                      print (snapPresence);
+                      return ListView.builder(
+                        shrinkWrap: true,
+                        physics: NeverScrollableScrollPhysics(),
+                        itemCount: snapPresence.data!.docs.length,
+                        itemBuilder: (context, index) {
+                          Map<String, dynamic> data = snapPresence.data!.docs.reversed.toList()[index].data();
+                          return Padding(
+                            padding: const EdgeInsets.only(bottom: 20),
+                            child: Material(
+                              color: Colors.grey[200],
+                              borderRadius: BorderRadius.circular(20),
+                              child: InkWell(
+                                onTap: () {
+                                  Get.toNamed("/detail-presensi");
+                                },
                                 borderRadius: BorderRadius.circular(20),
-                              ),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
+                                child: Container(
+                                  padding: EdgeInsets.all(20),
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(20),
+                                  ),
+                                  child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
                                     children: [
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Text(
+                                            "In",
+                                            style: TextStyle(
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                          ),
+                                          Text(
+                                            "${DateFormat.yMMMEd().format(DateTime.parse(data['date']))}",
+                                            style: TextStyle(
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
                                       Text(
-                                        "In",
+                                          data ['masuk']?['date'] == null ? "-" : "${DateFormat.jms().format(DateTime.parse(data['masuk']!['date']))}"),
+                                      SizedBox(height: 10),
+                                      Text(
+                                        "Out",
                                         style: TextStyle(
                                           fontWeight: FontWeight.bold,
                                         ),
                                       ),
                                       Text(
-                                        "${DateFormat.yMMMEd().format(DateTime.now())}",
-                                        style: TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                        ),
-                                      ),
+                                          data ['keluar']?['date'] == null ? "-" : "${DateFormat.jms().format(DateTime.parse(data['keluar']!['date']))}"),
                                     ],
                                   ),
-                                  Text(
-                                      "${DateFormat.jms().format(DateTime.now())}"),
-                                  SizedBox(height: 10),
-                                  Text(
-                                    "Out",
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
-                                  Text(
-                                      "${DateFormat.jms().format(DateTime.now())}"),
-                                ],
+                                ),
                               ),
                             ),
-                          ),
-                        ),
+                          );
+                        },
                       );
                     },
                   ),
