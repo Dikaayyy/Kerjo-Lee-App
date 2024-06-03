@@ -16,7 +16,6 @@ class PageIndexController extends GetxController {
     pageIndex.value = i;
     switch (i) {
       case 1:
-        print('Absensi');
         try {
           Map<String, dynamic> dataResponse = await determinePosition();
           print('dataResponse: $dataResponse'); // Log dataResponse
@@ -34,7 +33,7 @@ class PageIndexController extends GetxController {
 
             await presensi(position, address, distance);
 
-            Get.snackbar("Success", "You presence");
+            // Get.snackbar("Success", "You presence");
           } else {
             Get.snackbar("Error", dataResponse["message"]);
           }
@@ -68,7 +67,15 @@ class PageIndexController extends GetxController {
       status = "In The Area";
     }
     if (snapPresence.docs.length == 0) {
-      await colPresnce.doc(todayDocID).set({
+      
+    await Get.defaultDialog(
+      title: "Validasi Presensi",
+      middleText: "Apakah kamu yakin ingin mengisi daftar masuk ?",
+      actions: [
+        OutlinedButton(onPressed: ()=> Get.back(), child: Text("TIDAK")),
+        ElevatedButton(onPressed: () 
+        async{
+          await colPresnce.doc(todayDocID).set({
         "date": now.toIso8601String(),
         "masuk": {
           "date": now.toIso8601String(),
@@ -77,8 +84,15 @@ class PageIndexController extends GetxController {
           "address": address,
           "status": status,
           "distance": distance,
-        }
-      });
+           }
+         });
+      Get.back();
+      Get.snackbar("Success", "You presence");
+      },
+       child: Text("YA"))
+    ],
+  );
+
     } else {
       DocumentSnapshot<Map<String, dynamic>> todayDoc =
           await colPresnce.doc(todayDocID).get();
@@ -88,6 +102,13 @@ class PageIndexController extends GetxController {
           Get.snackbar("Peringatan", "Kamu Sudah Absen masuk dan keluar");
         } else {
           // absen keluar
+          await Get.defaultDialog(
+      title: "Validasi Presensi",
+      middleText: "Apakah kamu yakin ingin mengisi daftar keluar ?",
+      actions: [
+        OutlinedButton(onPressed: ()=> Get.back(), child: Text("TIDAK")),
+        ElevatedButton(onPressed: () 
+        async{
           await colPresnce.doc(todayDocID).update({
             "Keluar": {
               "date": now.toIso8601String(),
@@ -98,9 +119,23 @@ class PageIndexController extends GetxController {
               "distance": distance,
             },
           });
+      Get.back();
+      Get.snackbar("Success", "You presence");
+      },
+       child: Text("YA"))
+    ],
+  );
+          
         }
       } else {
-        await colPresnce.doc(todayDocID).set({
+        await Get.defaultDialog(
+      title: "Validasi Presensi",
+      middleText: "Apakah kamu yakin ingin mengisi daftar hadir ?",
+      actions: [
+        OutlinedButton(onPressed: ()=> Get.back(), child: Text("TIDAK")),
+        ElevatedButton(onPressed: () 
+        async{
+          await colPresnce.doc(todayDocID).set({
           "date": now.toIso8601String(),
           "masuk": {
             "date": now.toIso8601String(),
@@ -110,7 +145,12 @@ class PageIndexController extends GetxController {
             "status": status,
             "distance": distance,
           },
-        });
+        }
+      );
+        }, child: Text("YA"))
+      ],);
+      Get.back();
+      Get.snackbar("Success", "You presence");
       }
     }
   }
