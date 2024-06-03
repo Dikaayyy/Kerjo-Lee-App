@@ -28,7 +28,9 @@ if (flutterVersionName == null) {
 android {
     namespace "com.kerjolee.presence"
     compileSdk flutter.compileSdkVersion
+    ndkVersion "25.1.8937393"
     ndkVersion flutter.ndkVersion
+
 
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8

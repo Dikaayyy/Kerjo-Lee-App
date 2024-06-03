@@ -55,7 +55,7 @@ class PageIndexController extends GetxController {
       Position position, String address, double distance) async {
     String uid = auth.currentUser!.uid;
     CollectionReference<Map<String, dynamic>> colPresnce =
-        await firestore.collection("karyawan").doc(uid).collection("Presence");
+        await firestore.collection("karyawan").doc(uid).collection("presence");
 
     QuerySnapshot<Map<String, dynamic>> snapPresence = await colPresnce.get();
 
@@ -169,7 +169,7 @@ class PageIndexController extends GetxController {
       print('Current position: $position'); // Log the position
       return {
         "position": position,
-        "message": "Posisi device berhasil didapatkan",
+        "message": "Got device position.",
         "error": false,
       };
     } catch (e) {

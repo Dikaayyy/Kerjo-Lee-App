@@ -181,27 +181,32 @@ class HomeView extends GetView<HomeController> {
                   StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
                     stream: controller.streamLastPresence(),
                     builder: (context, snapPresence) {
-                      if ( snapPresence.connectionState == ConnectionState.waiting ){
+                      if (snapPresence.connectionState ==
+                          ConnectionState.waiting) {
                         return Center(
                           child: CircularProgressIndicator(),
                         );
                       }
-                      print (snapPresence.data);
-                      if (snapPresence.data?.docs.length == 0 || snapPresence.data == null ){
+                      print(snapPresence.data);
+                      if (snapPresence.data?.docs.length == 0 ||
+                          snapPresence.data == null) {
                         return SizedBox(
                           height: 250,
                           child: Center(
-                          child: Text ("Anda Belum Pernah Absen"),
+                            child: Text("Anda Belum Pernah Absen"),
                           ),
                         );
                       }
-                      print (snapPresence);
+                      print(snapPresence);
                       return ListView.builder(
                         shrinkWrap: true,
                         physics: NeverScrollableScrollPhysics(),
                         itemCount: snapPresence.data!.docs.length,
                         itemBuilder: (context, index) {
-                          Map<String, dynamic> data = snapPresence.data!.docs.reversed.toList()[index].data();
+                          Map<String, dynamic> data = snapPresence
+                              .data!.docs.reversed
+                              .toList()[index]
+                              .data();
                           return Padding(
                             padding: const EdgeInsets.only(bottom: 20),
                             child: Material(
@@ -218,7 +223,8 @@ class HomeView extends GetView<HomeController> {
                                     borderRadius: BorderRadius.circular(20),
                                   ),
                                   child: Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
                                     children: [
                                       Row(
                                         mainAxisAlignment:
@@ -238,8 +244,9 @@ class HomeView extends GetView<HomeController> {
                                           ),
                                         ],
                                       ),
-                                      Text(
-                                          data ['masuk']?['date'] == null ? "-" : "${DateFormat.jms().format(DateTime.parse(data['masuk']!['date']))}"),
+                                      Text(data['masuk']?['date'] == null
+                                          ? "-"
+                                          : "${DateFormat.jms().format(DateTime.parse(data['masuk']!['date']))}"),
                                       SizedBox(height: 10),
                                       Text(
                                         "Out",
@@ -247,8 +254,9 @@ class HomeView extends GetView<HomeController> {
                                           fontWeight: FontWeight.bold,
                                         ),
                                       ),
-                                      Text(
-                                          data ['keluar']?['date'] == null ? "-" : "${DateFormat.jms().format(DateTime.parse(data['keluar']!['date']))}"),
+                                      Text(data['Keluar']?['date'] == null
+                                          ? "-"
+                                          : "${DateFormat.jms().format(DateTime.parse(data['Keluar']!['date']))}"),
                                     ],
                                   ),
                                 ),
