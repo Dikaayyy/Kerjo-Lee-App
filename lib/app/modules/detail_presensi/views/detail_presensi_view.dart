@@ -6,9 +6,10 @@ import 'package:intl/intl.dart';
 import '../controllers/detail_presensi_controller.dart';
 
 class DetailPresensiView extends GetView<DetailPresensiController> {
-  const DetailPresensiView({Key? key}) : super(key: key);
+  final Map<String, dynamic> data = Get.arguments;
   @override
   Widget build(BuildContext context) {
+    print(data);
     return Scaffold(
       appBar: AppBar(
         title: const Text(
@@ -28,7 +29,7 @@ class DetailPresensiView extends GetView<DetailPresensiController> {
               children: [
                 Center(
                   child: Text(
-                    '${DateFormat.yMMMMEEEEd().format(DateTime.now())}',
+                    '${DateFormat.yMMMMEEEEd().format(DateTime.parse(data['date']))}',
                     style: TextStyle(
                       fontSize: 17,
                       fontWeight: FontWeight.bold,
@@ -43,10 +44,14 @@ class DetailPresensiView extends GetView<DetailPresensiController> {
                   ),
                 ),
                 Text(
-                  'Time : ${DateFormat.jms().format(DateTime.now())}',
+                  'Time : ${DateFormat.jms().format(DateTime.parse(data['masuk']!['date']))}',
                 ),
-                Text('Position'),
-                Text('Status : In the Area'),
+                Text(
+                    'Position : ${data['masuk']!['lat']}, ${data['masuk']?['long']}'),
+                Text('Status : ${data['masuk']!['status']}'),
+                Text(
+                    'Distance : ${data['masuk']!['distance'].toString().split(".").first} meters'),
+                Text("Address : ${data['masuk']!['address']}"),
                 SizedBox(height: 20),
                 Text(
                   'Out',
@@ -55,10 +60,23 @@ class DetailPresensiView extends GetView<DetailPresensiController> {
                   ),
                 ),
                 Text(
-                  'Time : ${DateFormat.jms().format(DateTime.now())}',
+                  data['Keluar']?['date'] == null
+                      ? "Time : -"
+                      : 'Time : ${DateFormat.jms().format(DateTime.parse(data['Keluar']!['date']))}',
                 ),
-                Text('Position'),
-                Text('Status : Out of Area'),
+                Text(data['Keluar']?['lat'] == null &&
+                        data['Keluar']?['long'] == null
+                    ? "Position : -"
+                    : 'Position : ${data['Keluar']!['lat']}, ${data['Keluar']?['long']}'),
+                Text(data['Keluar']?['status'] == null
+                    ? "Status : -"
+                    : 'Status : ${data['Keluar']!['status']}'),
+                Text(data['Keluar']?['distance'] == null
+                    ? "Status : -"
+                    : 'Distance : ${data['Keluar']!['distance'].toString().split(".").first} meters'),
+                Text(data['Keluar']?['address'] == null
+                    ? "Status : -"
+                    : "Address : ${data['Keluar']!['address']}"),
               ],
             ),
             decoration: BoxDecoration(
