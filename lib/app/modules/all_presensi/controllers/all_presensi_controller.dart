@@ -4,16 +4,37 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:get/get.dart';
 
 class AllPresensiController extends GetxController {
+  DateTime? start;
+  DateTime end = DateTime.now();
   FirebaseAuth auth = FirebaseAuth.instance;
   FirebaseFirestore firestore = FirebaseFirestore.instance;
 
-  Stream<QuerySnapshot<Map<String, dynamic>>> streamAllPresence() async* {
+  Future<QuerySnapshot<Map<String, dynamic>>> getPresence() async {
     String uid = auth.currentUser!.uid;
-    yield* firestore
+
+    if (start == null){
+      return await firestore
         .collection("karyawan")
         .doc(uid)
         .collection("presence")
+        .where("date", isLessThan: end.toIso8601String())
         .orderBy("date", descending: true)
-        .snapshots();
+        .get();
+    } else {
+      return await firestore
+        .collection("karyawan")
+        .doc(uid)
+        .collection("presence")
+        .where("date", isGreaterThan: start!.toIso8601String())
+        .where("date", isLessThan: end.add(Duration(days : 1)).toIso8601String())
+        .orderBy("date", descending: true)
+        .get();
+    }
+  }
+    void pickDate (DateTime pickStart,DateTime pickEnd){
+      start = pickStart;
+      end = pickEnd;
+      update();
+      Get.back();
   }
 }

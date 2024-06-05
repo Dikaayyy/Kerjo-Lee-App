@@ -19,7 +19,8 @@ dependencies:
   geocoding: 3.0.0
   flutter: 
     sdk: flutter
-
+  syncfusion_flutter_datepicker: ^25.2.7
+  
 dev_dependencies: 
   flutter_lints: 4.0.0
   flutter_test: 

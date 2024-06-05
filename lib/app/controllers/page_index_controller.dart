@@ -24,7 +24,7 @@ class PageIndexController extends GetxController {
             List<Placemark> placemarks = await placemarkFromCoordinates(
                 position.latitude, position.longitude);
             String address =
-                "${dataResponse['message']}, ${placemarks[0].name},${placemarks[0].subLocality},${placemarks[0].locality}";
+                "${placemarks[0].subLocality},${placemarks[0].locality}, ${placemarks[0].country}";
 
             await updatePosition(position, address);
 
