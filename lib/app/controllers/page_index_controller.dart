@@ -203,7 +203,9 @@ class PageIndexController extends GetxController {
         };
       }
 
-      Position position = await Geolocator.getCurrentPosition();
+      Position position = await Geolocator.getCurrentPosition(
+        desiredAccuracy: LocationAccuracy.high,
+      );
       print('Current position: $position'); // Log the position
       return {
         "position": position,
