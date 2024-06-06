@@ -92,9 +92,9 @@ class AllPresensiView extends GetView<AllPresensiController> {
                               fontWeight: FontWeight.bold,
                             ),
                           ),
-                          Text(data['keluar']?['date'] == null
+                          Text(data['Keluar']?['date'] == null
                               ? "-"
-                              : "${DateFormat.jms().format(DateTime.parse(data['keluar']!['date']))}"),
+                              : "${DateFormat.jms().format(DateTime.parse(data['Keluar']!['date']))}"),
                         ],
                       ),
                     ),

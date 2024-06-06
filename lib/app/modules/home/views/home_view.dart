@@ -160,9 +160,9 @@ class HomeView extends GetView<HomeController> {
                                   Column(
                                     children: [
                                       Text("Out"),
-                                      Text(dataToday?["keluar"] == null
+                                      Text(dataToday?["Keluar"] == null
                                           ? "-"
-                                          : "${DateFormat.jms().format(DateTime.parse(dataToday!['keluar']['date']))}"),
+                                          : "${DateFormat.jms().format(DateTime.parse(dataToday!['Keluar']['date']))}"),
                                     ],
                                   )
                                 ],

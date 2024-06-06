@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
-
 import 'package:get/get.dart';
-
 import '../controllers/add_karyawan_controller.dart';
 
 class AddKaryawanView extends GetView<AddKaryawanController> {
   const AddKaryawanView({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -20,7 +19,7 @@ class AddKaryawanView extends GetView<AddKaryawanController> {
         centerTitle: true,
       ),
       body: ListView(
-        padding: EdgeInsets.all(20),
+        padding: const EdgeInsets.all(20),
         children: [
           TextField(
             autocorrect: false,
@@ -84,8 +83,8 @@ class AddKaryawanView extends GetView<AddKaryawanController> {
           const SizedBox(height: 20),
           TextField(
             autocorrect: false,
-            controller: controller.passwordC,
             obscureText: true,
+            controller: controller.passC,  // New password field
             decoration: InputDecoration(
               labelText: 'Password',
               border: OutlineInputBorder(
@@ -105,10 +104,12 @@ class AddKaryawanView extends GetView<AddKaryawanController> {
               }
             },
             child: Obx(
-              () => Text(controller.isLoading.isFalse ? 'Login' : 'LOADING . .',
-                  style: const TextStyle(
-                    color: Colors.white,
-                  )),
+              () => Text(
+                controller.isLoading.isFalse ? 'Add Karyawan' : 'LOADING . .',
+                style: const TextStyle(
+                  color: Colors.white,
+                ),
+              ),
             ),
             style: ElevatedButton.styleFrom(
               backgroundColor: Colors.blue,
