@@ -66,12 +66,19 @@ class PageIndexController extends GetxController {
     if (distance <= 100) {
       status = "In The Area";
     }
+
+    // Hanya memperbolehkan presensi jika berada dalam area
+    if (status == "Outside The Area") {
+      Get.snackbar(
+          "Error", "You are outside the area and cannot make a presence.");
+      return; // Hentikan eksekusi fungsi
+    }
     if (snapPresence.docs.length == 0) {
       await Get.defaultDialog(
-        title: "Validasi Presensi",
-        middleText: "Apakah kamu yakin ingin mengisi daftar masuk ?",
+        title: "Presence Validation",
+        middleText: "Are you sure you want to fill out the attendance list?",
         actions: [
-          OutlinedButton(onPressed: () => Get.back(), child: Text("TIDAK")),
+          OutlinedButton(onPressed: () => Get.back(), child: Text("No")),
           ElevatedButton(
               onPressed: () async {
                 await colPresnce.doc(todayDocID).set({
@@ -86,9 +93,9 @@ class PageIndexController extends GetxController {
                   }
                 });
                 Get.back();
-                Get.snackbar("Success", "You presence");
+                Get.snackbar("Success", "You take attendance");
               },
-              child: Text("YA"))
+              child: Text("Yes"))
         ],
       );
     } else {
@@ -97,14 +104,14 @@ class PageIndexController extends GetxController {
       if (todayDoc.exists == true) {
         Map<String, dynamic>? dataPresenceToday = todayDoc.data();
         if (dataPresenceToday?["Keluar"] != null) {
-          Get.snackbar("Peringatan", "Kamu Sudah Absen masuk dan keluar");
+          Get.snackbar("Alret", "Kamu Sudah Absen masuk dan keluar");
         } else {
           // absen keluar
           await Get.defaultDialog(
-            title: "Validasi Presensi",
-            middleText: "Apakah kamu yakin ingin mengisi daftar keluar ?",
+            title: "Presence Validation",
+            middleText: "Are you sure you want to fill out the exit list?",
             actions: [
-              OutlinedButton(onPressed: () => Get.back(), child: Text("TIDAK")),
+              OutlinedButton(onPressed: () => Get.back(), child: Text("No")),
               ElevatedButton(
                   onPressed: () async {
                     await colPresnce.doc(todayDocID).update({
@@ -118,18 +125,18 @@ class PageIndexController extends GetxController {
                       },
                     });
                     Get.back();
-                    Get.snackbar("Success", "You presence");
+                    Get.snackbar("Success", "You take attendance");
                   },
-                  child: Text("YA"))
+                  child: Text("Yes"))
             ],
           );
         }
       } else {
         await Get.defaultDialog(
-          title: "Validasi Presensi",
-          middleText: "Apakah kamu yakin ingin mengisi daftar hadir ?",
+          title: "Presence Validation",
+          middleText: "Are you sure you want to fill out the attendance list?",
           actions: [
-            OutlinedButton(onPressed: () => Get.back(), child: Text("TIDAK")),
+            OutlinedButton(onPressed: () => Get.back(), child: Text("No")),
             ElevatedButton(
                 onPressed: () async {
                   await colPresnce.doc(todayDocID).set({
@@ -144,11 +151,11 @@ class PageIndexController extends GetxController {
                     },
                   });
                 },
-                child: Text("YA"))
+                child: Text("Yes"))
           ],
         );
         Get.back();
-        Get.snackbar("Success", "You presence");
+        Get.snackbar("Success", "You take attendance");
       }
     }
   }
