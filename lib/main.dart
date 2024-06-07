@@ -31,7 +31,7 @@ void main() async {
           }
           print(Snapshot.data);
           return GetMaterialApp(
-            title: "Application",
+            title: "Kerjo Lee",
             initialRoute: Snapshot.data != null ? Routes.HOME : Routes.LOGIN,
             getPages: AppPages.routes,
           );
