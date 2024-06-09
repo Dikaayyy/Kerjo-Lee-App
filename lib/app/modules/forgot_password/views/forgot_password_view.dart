@@ -10,8 +10,10 @@ class ForgotPasswordView extends GetView<ForgotPasswordController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Forgot Password'),
-        centerTitle: true,
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back,),
+          onPressed: () => Get.back(),
+        ),
       ),
       body: ListView(padding: EdgeInsets.all(20), children: [
         TextField(
@@ -37,13 +39,15 @@ class ForgotPasswordView extends GetView<ForgotPasswordController> {
               },
               child : Text(
                 controller.isLoading.isFalse ? 'SEND EMAIL' : 'LOADING . .',
-                style: const TextStyle(
+                style:
+                 const TextStyle(
                   color: Colors.white,
                 ),
               ),
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.blue,
               ),
+              
             )
             ),
       ]

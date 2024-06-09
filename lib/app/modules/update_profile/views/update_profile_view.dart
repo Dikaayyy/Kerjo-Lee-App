@@ -14,13 +14,18 @@ class UpdateProfileView extends GetView<UpdateProfileController> {
     controller.emailC.text = user["email"] ?? '';
     return Scaffold(
       appBar: AppBar(
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back,
+          color: Colors.white,),
+          onPressed: () => Get.back(),
+        ),
         title: const Text(
-          'UPDATE PROFILE',
+          'Update Profile',
           style: TextStyle(
-            fontSize: 20,
             fontWeight: FontWeight.bold,
             color: Colors.white,
           ),
+          
         ),
         centerTitle: true,
         backgroundColor: Colors.blue,

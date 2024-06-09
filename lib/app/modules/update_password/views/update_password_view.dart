@@ -10,16 +10,20 @@ class UpdatePasswordView extends GetView<UpdatePasswordController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
-          'UPDATE PASSWORD',
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back,
+          color: Colors.white,),
+          onPressed: () => Get.back(),
+        ),
+        title: Text(
+          'Update Password',
           style: TextStyle(
-            fontSize: 20,
-            fontWeight: FontWeight.bold,
             color: Colors.white,
+            fontWeight: FontWeight.bold,
           ),
         ),
-        backgroundColor: Colors.blue,
         centerTitle: true,
+        backgroundColor: Colors.blue,
       ),
       body: ListView(
         padding: EdgeInsets.all(20),
@@ -39,7 +43,7 @@ class UpdatePasswordView extends GetView<UpdatePasswordController> {
               ),
             ),
           ),
-          SizedBox(height: 15),
+          SizedBox(height: 20),
           TextField(
             controller: controller.newC,
             autocorrect: false,
@@ -55,7 +59,7 @@ class UpdatePasswordView extends GetView<UpdatePasswordController> {
               ),
             ),
           ),
-          SizedBox(height: 15),
+          SizedBox(height: 20),
           TextField(
             controller: controller.confirmC,
             autocorrect: false,
@@ -71,7 +75,7 @@ class UpdatePasswordView extends GetView<UpdatePasswordController> {
               ),
             ),
           ),
-          SizedBox(height: 15),
+          SizedBox(height: 30),
           Obx(
             () => ElevatedButton(
               onPressed: () {

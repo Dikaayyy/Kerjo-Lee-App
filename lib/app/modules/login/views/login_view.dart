@@ -33,20 +33,32 @@ class LoginView extends GetView<LoginController> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: <Widget>[
-                    Text(
-                      'Login',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 40,
-                        fontWeight: FontWeight.bold,
+                    Align(
+                      alignment: Alignment.topLeft,
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Text(
+                          'Login',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 40,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
                       ),
                     ),
-                    SizedBox(height: 10),
-                    Text(
-                      'Welcome back',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 18,
+
+                    Align(
+                      alignment: Alignment.topLeft,
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Text(
+                          'Welcome Adventurer',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 18,
+                          ),
+                        ),
                       ),
                     ),
                   ],
@@ -140,6 +152,8 @@ class LoginView extends GetView<LoginController> {
                                 : 'Loading . .',
                             style: TextStyle(
                               color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 18
                             ),
                           ),
                           style: ElevatedButton.styleFrom(
@@ -149,7 +163,7 @@ class LoginView extends GetView<LoginController> {
                             padding: EdgeInsets.symmetric(
                                 vertical: 15), // Padding tombol
                             shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(50),
+                              borderRadius: BorderRadius.circular(10),
                             ),
                           ),
                         ),

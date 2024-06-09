@@ -9,7 +9,12 @@ class AddKaryawanView extends GetView<AddKaryawanController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('ADD KARYAWAN'),
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back,
+          color: Colors.white,),
+          onPressed: () => Get.back(),
+        ),
+        title: const Text('Add Employee'),
         titleTextStyle: const TextStyle(
           fontSize: 15,
           fontWeight: FontWeight.bold,
@@ -105,7 +110,7 @@ class AddKaryawanView extends GetView<AddKaryawanController> {
             },
             child: Obx(
               () => Text(
-                controller.isLoading.isFalse ? 'Add Karyawan' : 'LOADING . .',
+                controller.isLoading.isFalse ? 'Add Employee' : 'LOADING . .',
                 style: const TextStyle(
                   color: Colors.white,
                 ),

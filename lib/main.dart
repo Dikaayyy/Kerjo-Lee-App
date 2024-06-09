@@ -21,7 +21,6 @@ void main() async {
         builder: (context, Snapshot) {
           if (Snapshot.connectionState == ConnectionState.waiting) {
             return MaterialApp(
-              debugShowCheckedModeBanner: false,
               home: Scaffold(
                 body: Center(
                   child: CircularProgressIndicator(),
@@ -31,6 +30,7 @@ void main() async {
           }
           print(Snapshot.data);
           return GetMaterialApp(
+            debugShowCheckedModeBanner: false,
             title: "Kerjo Lee",
             initialRoute: Snapshot.data != null ? Routes.HOME : Routes.LOGIN,
             getPages: AppPages.routes,

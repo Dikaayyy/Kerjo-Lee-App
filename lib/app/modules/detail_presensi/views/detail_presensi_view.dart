@@ -12,11 +12,11 @@ class DetailPresensiView extends GetView<DetailPresensiController> {
     print(data);
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
-          'ATTENDANCE DETAIL',
-          style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back,
+          color: Colors.white,),
+          onPressed: () => Get.back(),
         ),
-        centerTitle: true,
         backgroundColor: Colors.blue,
       ),
       body: ListView(
