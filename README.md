@@ -28,13 +28,17 @@ Kerjo Lee is an employee attendance app built with Flutter and powered by Fireba
 
 8. Run the app: `flutter run`
 
+## Required Tools
+
+- Android Studio
+- Visual Studio Code (Optional)
+- Flutter
+- Dart
+- Android Emulator or Android Real Device
+
 ## Contributions
 
 Contributions are welcome! If you find a bug or want to add new features, feel free to open an issue or submit a pull request.
-
-## License
-
-This project is licensed under the [MIT License](/LICENSE).
 
 -----
 
