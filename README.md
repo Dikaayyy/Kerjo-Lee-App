@@ -2,6 +2,9 @@
 
 Kerjo Lee is an employee attendance app built with Flutter and powered by Firebase. It simplifies attendance management with real-time tracking and reporting, providing an efficient solution for businesses to manage employee check-ins and check-outs effortlessly
 
+## Demo
+
+<img src="banner.png">
 
 ## Features
 
