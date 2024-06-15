@@ -39,6 +39,8 @@ Kerjo Lee is an employee attendance app built with Flutter and powered by Fireba
 - Dart
 - Android Emulator or Android Real Device
 
+## Manual Book
+[Manual Book](https://github.com/Dikaayyy/Kerjo-Lee-App/blob/main/Manual%20Book%20Kerjo%20Lee.pdf)
 
 ## Contributions
 
