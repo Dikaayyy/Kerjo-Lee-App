@@ -29,7 +29,11 @@ Kerjo Lee is an employee attendance app built with Flutter and powered by Fireba
    - Set up security rules as per your requirements.
    - Update the Firebase configuration in your Flutter app code.
 
-8. Run the app: `flutter run`
+
+8. **Set Up Geolocator Location:**
+   - Open file in: 'lib>app>controllers>page_index_controller.dart' change latitude and longitude as you want, because if you in > 100 m from location point you can't presence.
+
+9. Run the app: `flutter run`
 
 ## Required Tools
 
