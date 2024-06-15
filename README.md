@@ -45,4 +45,4 @@ Contributions are welcome! If you find a bug or want to add new features, feel f
 
 -----
 
-### Designed and developed with ❤️ by [Adika Akbar Kurniawan](https://www.linkedin.com/in/adika-akbar-kurniawan/).
+### Designed and developed with ❤️ by [Adika Akbar Kurniawan](https://www.linkedin.com/in/adika-akbar-kurniawan/) and Team.
